@@ -26,6 +26,7 @@ public class SecurityConfig {
                         .requestMatchers("/category/update/{id}").hasRole("EXECUTIVE") // User role for /user/** paths
                         .requestMatchers("/category/delete/{id}").hasRole("EXECUTIVE")
                         .requestMatchers("/category/all").permitAll() // Public endpoints accessible to anyone
+                        .requestMatchers("/customer/add").permitAll()
                         .anyRequest().authenticated() // Any other request must be authenticated
                 )
                 .httpBasic(Customizer.withDefaults()); // Enable logout functionality
