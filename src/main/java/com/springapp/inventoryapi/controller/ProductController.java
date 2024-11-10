@@ -57,4 +57,22 @@ public class ProductController {
         productService.insert(updatedProduct);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageDto("Product updated.."));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable("id") int id){
+        try {
+            Product product = productService.getById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageDto(e.getMessage()));
+        }
+
+    }
+
+    @GetMapping("/search/{qString}")
+    public List<Product> searchProduct(@PathVariable("qString") String qString){
+        List<Product> list=productService.searchProduct(qString);
+        return list;
+
+    }
 }

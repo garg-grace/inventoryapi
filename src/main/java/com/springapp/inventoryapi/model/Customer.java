@@ -15,6 +15,9 @@ public class Customer {
     @OneToOne
     private User user;
 
+    @OneToOne
+    private Address address;
+
     public int getId() {
         return id;
     }
@@ -55,6 +58,14 @@ public class Customer {
         this.user = user;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -63,6 +74,7 @@ public class Customer {
                 ", contact='" + contact + '\'' +
                 ", age='" + age + '\'' +
                 ", user=" + user +
+                ", address=" + address +
                 '}';
     }
 }

@@ -31,4 +31,8 @@ public class ProductService {
         if(!optional.isPresent()) throw new ResourceNotFoundException("Product ID Invalid");
         return optional.get();
     }
+
+    public List<Product> searchProduct(String qString) {
+        return productRepository.searchProduct(qString);
+    }
 }
