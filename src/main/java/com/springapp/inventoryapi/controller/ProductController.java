@@ -1,6 +1,7 @@
 package com.springapp.inventoryapi.controller;
 
 import com.springapp.inventoryapi.dto.MessageDto;
+import com.springapp.inventoryapi.dto.OrderDto;
 import com.springapp.inventoryapi.exception.ResourceNotFoundException;
 import com.springapp.inventoryapi.model.Category;
 import com.springapp.inventoryapi.model.Product;
@@ -11,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -73,6 +76,10 @@ public class ProductController {
     public List<Product> searchProduct(@PathVariable("qString") String qString){
         List<Product> list=productService.searchProduct(qString);
         return list;
+    }
 
+    @PostMapping("/place-order")
+    private Map<Integer,Boolean> placeOrder(@RequestBody List<OrderDto> listDto){
+        return productService.placeOrderComputation(listDto);
     }
 }

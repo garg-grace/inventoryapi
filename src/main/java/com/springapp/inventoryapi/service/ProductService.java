@@ -1,5 +1,6 @@
 package com.springapp.inventoryapi.service;
 
+import com.springapp.inventoryapi.dto.OrderDto;
 import com.springapp.inventoryapi.exception.ResourceNotFoundException;
 import com.springapp.inventoryapi.model.Category;
 import com.springapp.inventoryapi.model.Product;
@@ -7,7 +8,9 @@ import com.springapp.inventoryapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -34,5 +37,20 @@ public class ProductService {
 
     public List<Product> searchProduct(String qString) {
         return productRepository.searchProduct(qString);
+    }
+
+    public Map<Integer, Boolean> placeOrderComputation(List<OrderDto> listDto) {
+        Map<Integer,Boolean> map = new HashMap<>();
+
+        listDto.parallelStream().forEach(dto -> {
+            int pid = dto.getId();
+            int quantityOrdered = dto.getQuantity();
+
+            int availableQuantity = productRepository.findById(pid).get().getTotalQuantity();
+
+            map.put(pid,availableQuantity>=quantityOrdered?true:false);
+        });
+
+        return map;
     }
 }

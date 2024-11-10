@@ -15,6 +15,8 @@ public class Product {
 
     private double price;
 
+    private int totalQuantity;
+
     @Column(length = 1200)
     private String description;
 
@@ -57,12 +59,26 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
-    @Override
-    public String toString() {
-        return "Product [id=" + id + ", title=" + title + ", tagline=" + tagline + ", price=" + price + ", description="
-                + description + ", category=" + category + "]";
+
+    public int getTotalQuantity() {
+        return totalQuantity;
     }
 
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", tagline='" + tagline + '\'' +
+                ", price=" + price +
+                ", totalQuantity=" + totalQuantity +
+                ", description='" + description + '\'' +
+                ", category=" + category +
+                '}';
+    }
 }
 
