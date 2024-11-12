@@ -4,14 +4,18 @@ import com.springapp.inventoryapi.dto.MessageDto;
 import com.springapp.inventoryapi.dto.OrderDto;
 import com.springapp.inventoryapi.exception.ResourceNotFoundException;
 import com.springapp.inventoryapi.model.Category;
+import com.springapp.inventoryapi.model.Customer;
+import com.springapp.inventoryapi.model.OutwardRegister;
 import com.springapp.inventoryapi.model.Product;
 import com.springapp.inventoryapi.service.CategoryService;
+import com.springapp.inventoryapi.service.CustomerService;
 import com.springapp.inventoryapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +27,9 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CustomerService customerService;
+
     @PostMapping("/add/{catID}")
     public ResponseEntity<?> insertProduct(@PathVariable("catID") int catID,@RequestBody Product product){
 
@@ -81,5 +88,16 @@ public class ProductController {
     @PostMapping("/place-order")
     private Map<Integer,Boolean> placeOrder(@RequestBody List<OrderDto> listDto){
         return productService.placeOrderComputation(listDto);
+    }
+
+    @PostMapping("/confirm-order")
+    public void confirmOrder(@RequestBody List<OrderDto> listDto, Principal principal){
+        String username = principal.getName();
+        Customer customer = customerService.getCustomerByUsername(username);
+
+        productService.confirmOrder(listDto,customer);
+
+        //make entry in outward register
+        //method implementation pending
     }
 }

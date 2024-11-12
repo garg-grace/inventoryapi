@@ -14,4 +14,8 @@ public class CustomerService {
     public Customer insert(Customer customer) {
         return customerRepository.save(customer);
     }
+
+    public Customer getCustomerByUsername(String username) {
+        return customerRepository.getCustomerByUsername(username);
+    }
 }

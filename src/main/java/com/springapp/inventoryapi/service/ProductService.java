@@ -2,7 +2,7 @@ package com.springapp.inventoryapi.service;
 
 import com.springapp.inventoryapi.dto.OrderDto;
 import com.springapp.inventoryapi.exception.ResourceNotFoundException;
-import com.springapp.inventoryapi.model.Category;
+import com.springapp.inventoryapi.model.Customer;
 import com.springapp.inventoryapi.model.Product;
 import com.springapp.inventoryapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +52,21 @@ public class ProductService {
         });
 
         return map;
+    }
+
+    public void confirmOrder(List<OrderDto> listDto, Customer customer) {
+        listDto.parallelStream().forEach(dto->{
+            int pid = dto.getId();
+            int quantityOrdered = dto.getQuantity();
+
+            //fetch product
+            Product product = productRepository.findById(pid).get();
+            //set product total quantity
+            product.setTotalQuantity(product.getTotalQuantity()-quantityOrdered);
+            //update product table
+            product = productRepository.save(product);
+
+
+        });
     }
 }
