@@ -14,4 +14,8 @@ public class SupplierService {
     public Supplier insert(Supplier supplier) {
         return supplierRepository.save(supplier);
     }
+
+    public Supplier getById(int supplierId) {
+        return supplierRepository.findById(supplierId).get();
+    }
 }
