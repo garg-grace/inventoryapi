@@ -1,5 +1,6 @@
 package com.springapp.inventoryapi.model;
 
+import com.springapp.inventoryapi.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -16,16 +17,19 @@ public class InwardRegister {
 
     private int quantity;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
     @Column(name = "date_of_supply")
     private LocalDate dateOfSupply;
 
-    @OneToOne
+    @ManyToOne
     private Product product;
 
-    @OneToOne
+    @ManyToOne
     private Warehouse warehouse;
 
-    @OneToOne
+    @ManyToOne
     private Supplier supplier;
 
     public int getId() {
@@ -84,12 +88,21 @@ public class InwardRegister {
         this.supplier = supplier;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     @Override
     public String toString() {
         return "InwardRegister{" +
                 "id=" + id +
                 ", invoice='" + invoice + '\'' +
                 ", quantity=" + quantity +
+                ", orderStatus=" + orderStatus +
                 ", dateOfSupply=" + dateOfSupply +
                 ", product=" + product +
                 ", warehouse=" + warehouse +

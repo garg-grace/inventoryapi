@@ -81,4 +81,10 @@ public class OrderController {
 
         return list;
     }
+
+    @PutMapping("/update/{oid}/{status}")
+    public ResponseEntity<?> updateOrderStatus(@PathVariable("oid") int oid,
+                                                        @PathVariable("status") String status){
+        return orderService.updateOrderStatus(oid,status);
+    }
 }
