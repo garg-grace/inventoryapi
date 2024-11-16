@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/category/delete/{id}").hasRole("EXECUTIVE")
                         .requestMatchers("/category/all").permitAll()
                         .requestMatchers("/customer/add").permitAll()
+                        .requestMatchers("/order/all").hasRole("SUPPLIER")
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());

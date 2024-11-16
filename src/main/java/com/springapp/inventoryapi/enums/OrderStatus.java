@@ -1,5 +1,5 @@
 package com.springapp.inventoryapi.enums;
 
 public enum OrderStatus {
-    PENDING,ACCEPTED,APPROVED
+    PENDING,ACCEPTED,DELIVERED,REJECTED,APPROVED
 }

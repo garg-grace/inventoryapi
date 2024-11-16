@@ -18,4 +18,9 @@ public class SupplierService {
     public Supplier getById(int supplierId) {
         return supplierRepository.findById(supplierId).get();
     }
+
+    public Supplier getByUsername(String supplierUsername) {
+        return supplierRepository.getByUsername(supplierUsername);
+
+    }
 }

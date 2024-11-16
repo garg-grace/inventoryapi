@@ -13,14 +13,16 @@ import com.springapp.inventoryapi.service.ProductService;
 import com.springapp.inventoryapi.service.SupplierService;
 import com.springapp.inventoryapi.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/order")
@@ -66,5 +68,17 @@ public class OrderController {
         order = orderService.insert(order);
 
         return ResponseEntity.status(HttpStatus.OK).body(order);
+    }
+
+    @GetMapping("/all")
+    public List<Order> getAll(@RequestParam("page") Integer page,
+                              @RequestParam("size") Integer size,
+                              Principal principal){
+        Pageable pageable = PageRequest.of(page,size);
+        String supplierUsername = principal.getName();
+        Supplier supplier = supplierService.getByUsername(supplierUsername);
+        List<Order> list =orderService.getAll(pageable,supplier.getId());
+
+        return list;
     }
 }
