@@ -5,6 +5,8 @@ import com.springapp.inventoryapi.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SupplierService {
 
@@ -22,5 +24,9 @@ public class SupplierService {
     public Supplier getByUsername(String supplierUsername) {
         return supplierRepository.getByUsername(supplierUsername);
 
+    }
+
+    public List<Supplier> getAll() {
+        return supplierRepository.findAll();
     }
 }

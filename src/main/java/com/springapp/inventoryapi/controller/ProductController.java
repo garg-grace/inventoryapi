@@ -22,6 +22,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
+@CrossOrigin(origins = {"http://localhost:3000/"})
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -99,5 +100,10 @@ public class ProductController {
 
         //make entry in outward register
         //method implementation pending
+    }
+
+    @GetMapping("/category/all/{cid}")
+    public List<Product> getAllByCategoryId(@PathVariable("cid") int cid){
+        return productService.getAllByCategoryId(cid);
     }
 }

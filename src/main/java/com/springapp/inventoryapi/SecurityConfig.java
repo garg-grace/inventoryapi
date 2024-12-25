@@ -33,13 +33,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/login").authenticated()
-                        .requestMatchers("/category/add").hasRole("EXECUTIVE")  // Check without "ROLE_"
-                        .requestMatchers("/category/update/{id}").hasRole("EXECUTIVE")
-                        .requestMatchers("/category/delete/{id}").hasRole("EXECUTIVE")
-                        .requestMatchers("/category/all").permitAll()
-                        .requestMatchers("/customer/add").permitAll()
-                        .requestMatchers("/order/all").hasRole("SUPPLIER")
+                                .requestMatchers("/user/login").permitAll()
+//                        .requestMatchers("/user/login").authenticated()
+//                        .requestMatchers("/category/add").hasRole("EXECUTIVE")  // Check without "ROLE_"
+//                        .requestMatchers("/category/update/{id}").hasRole("EXECUTIVE")
+//                        .requestMatchers("/category/delete/{id}").hasRole("EXECUTIVE")
+//                        .requestMatchers("/category/all").permitAll()
+//                        .requestMatchers("/customer/add").permitAll()
+//                        .requestMatchers("/order/all").hasRole("SUPPLIER")
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());

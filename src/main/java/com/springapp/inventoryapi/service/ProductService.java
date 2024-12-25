@@ -69,4 +69,8 @@ public class ProductService {
 
         });
     }
+
+    public List<Product> getAllByCategoryId(int cid) {
+        return productRepository.getAllByCategoryId(cid);
+    }
 }
